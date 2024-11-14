@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Location and Vehicle Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Include MapMyIndia Map API -->
+    <script src="https://apis.mapmyindia.com/advancedmaps/v1/{9181d425fb9b822df96370d7901865b4}/map_load?v=1.3"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Warehouse and Delivery Location Details</h2>
+
+    <!-- Warehouse Section -->
+    <div id="warehouse-section">
+        <h3>Warehouse Address</h3>
+        <div class="form-group">
+            <label for="warehouse-address">Address</label>
+            <input type="text" id="warehouse-address" placeholder="Enter address">
+        </div>
+        <div class="form-group">
+            <label for="warehouse-pincode">Pincode</label>
+            <input type="text" id="warehouse-pincode" placeholder="Enter Warehouse Pincode">
+        </div>
+        <div class="form-group">
+            <label for="warehouse-state">State</label>
+            <input type="text" id="warehouse-state" placeholder="Enter Warehouse State">
+        </div>
+        <div class="form-group">
+            <label for="warehouse-city">City</label>
+            <input type="text" id="warehouse-city" placeholder="Enter Warehouse City">
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Delivery Location Section -->
+    <div id="delivery-locations-section">
+        <h3>Delivery Locations</h3>
+        <div class="form-group">
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" placeholder="Enter Pincode">
+        </div>
+        <div class="form-group">
+            <label for="region">Region</label>
+            <input type="text" id="region" placeholder="Enter Region">
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" placeholder="Enter Address">
+        </div>
+        <div class="form-group">
+            <label for="weight">Weight of Item (kg)</label>
+            <input type="number" id="weight" placeholder="Enter Weight">
+        </div>
+        <div class="form-group">
+            <label for="priority">Priority Level</label>
+            <select id="priority">
+                <option value="A">Light and Small (Special handling)</option>
+                <option value="B">Light and Small (non-special handling)</option>
+                <option value="C">Heavy and large (Special handling)</option>
+                <option value="D">Heavy and large (non-special handling)</option>
+            </select>
+        </div>
+        <button class="add-btn" id="add-location-btn">Add Delivery Location</button>
+        <button class="remove-btn" id="remove-location-btn">Remove Last Delivery Location</button>
+    </div>
+
+    <hr>
+
+    <!-- Vehicle Details Section -->
+    <div id="vehicle-details-section">
+        <h3>Vehicle Details</h3>
+        <div class="form-group">
+            <label for="vehicle-name">Vehicle Name</label>
+            <input type="text" id="vehicle-name" placeholder="Enter vehicle name">
+        </div>
+        <div class="form-group">
+            <label for="vehicle-type">Vehicle Type</label>
+            <select id="vehicle-type">
+                <option value="bike">Bike</option>
+                <option value="truck">Truck</option>
+                <option value="van">Van</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fuel-capacity">Fuel Capacity (in Litres)</label>
+            <input type="number" id="fuel-capacity" placeholder="Enter Fuel Capacity">
+        </div>
+        <div class="form-group">
+            <label for="fuel-efficiency">Average Fuel Efficiency (km/l)</label>
+            <input type="number" id="fuel-efficiency" placeholder="Enter Fuel Efficiency">
+        </div>
+        <div class="form-group">
+            <label for="carrying-capacity">Carrying Capacity (kg)</label>
+            <input type="number" id="carrying-capacity" placeholder="Enter Carrying Capacity">
+        </div>
+        <button class="add-btn" id="add-vehicle-btn">Add Vehicle Type</button>
+        <button class="remove-btn" id="remove-vehicle-btn">Remove Last Vehicle</button>
+        <p id="bike-count">Bikes: 0</p>
+        <p id="truck-count">Trucks: 0</p>
+        <p id="van-count">Vans: 0</p>
+    </div>
+
+    <hr>
+
+    <!-- Submit Section -->
+    <button class="submit-btn" id="submit-btn">Submit</button>
+
+    <!-- Output Section -->
+    <h3>Entered Data</h3>
+    <div id="output"></div>
+
+    <!-- Route Display Area -->
+    <div id="route-display-section">
+        <h4>Select Vehicle Type and Vehicle to View Routes</h4>
+    
+        <!-- Vehicle Type Dropdown -->
+        <label for="vehicle-type-dropdown">Select Vehicle Type:</label>
+        <select id="vehicle-type-dropdown">
+            <option value="">--Select Vehicle Type--</option>
+            <option value="bike">Bike</option>
+            <option value="truck">Truck</option>
+            <option value="van">Van</option>
+        </select>
+
+        <!-- Vehicle Dropdown (To be populated based on vehicle type selection) -->
+        <label for="vehicle-dropdown">Select Vehicle:</label>
+        <select id="vehicle-dropdown">
+            <option value="">--Select Vehicle--</option>
+        </select>
+
+        <!-- Route Display -->
+        <div id="route-display">
+            <h4>Route Information</h4>
+            <p id="route-info">Select a vehicle to see the route</p>
+        </div>
+
+        <!-- Map Display -->
+        <div id="map" style="height: 500px; margin-top: 20px;"></div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+    // Initialize Map
+    let map;
+    function initMap() {
+        map = new MapmyIndia.Map('map', {
+            center: [28.6139, 77.209],
+            zoom: 5
+        });
+    }
+
+    // Call initMap when the window loads
+    window.onload = initMap;
+</script>
+</body>
+</html>
